@@ -1,4 +1,4 @@
-package com.tads20262.catalago.entity;
+package com.tads20262.catalago.category;
 
 import jakarta.persistence.*;
 import lombok.*;
@@ -8,12 +8,11 @@ import lombok.*;
 @NoArgsConstructor
 
 @Entity
+@Table
 public class Category
 {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String name;
-
-
 }
