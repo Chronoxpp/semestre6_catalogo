@@ -1,0 +1,20 @@
+package com.tads20262.catalago.category;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+public class CategoryDTO
+{
+    private long id;
+    private String name;
+
+    public CategoryDTO(Category entity)
+    {
+        id = entity.getId();
+        name = entity.getName();
+    }
+}
