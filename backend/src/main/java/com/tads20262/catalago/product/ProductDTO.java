@@ -14,4 +14,13 @@ public class ProductDTO
     private String description;
     private Double price;
     private String imgUrl;
+
+    public ProductDTO(Product entity)
+    {
+        id = entity.getId();
+        name = entity.getName();
+        description = entity.getDescription();
+        price = entity.getPrice();
+        imgUrl = entity.getImgUrl();
+    }
 }

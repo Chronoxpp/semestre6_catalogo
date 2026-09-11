@@ -1,5 +1,6 @@
 package com.tads20262.catalago.category;
 
+import com.tads20262.catalago.service.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,9 +21,9 @@ public class CategoryService
         List<Category> list = repository.findAll();
 
         return list
-               .stream()
-               .map(CategoryDTO::new)
-               .collect(Collectors.toList());
+            .stream()
+            .map(CategoryDTO::new)
+            .collect(Collectors.toList());
     }
 
     @Transactional(readOnly = true)
@@ -30,7 +31,7 @@ public class CategoryService
     {
         Optional<Category> obj = repository.findById(id);
 
-        Category entity = obj.get();
+        Category entity = obj.orElseThrow(()-> new ResourceNotFoundException("Entity Not found"));
 
         return new CategoryDTO(entity);
     }
