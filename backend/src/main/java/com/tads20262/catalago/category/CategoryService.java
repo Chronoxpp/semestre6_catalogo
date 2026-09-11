@@ -21,9 +21,9 @@ public class CategoryService
         List<Category> list = repository.findAll();
 
         return list
-            .stream()
-            .map(CategoryDTO::new)
-            .collect(Collectors.toList());
+           .stream()
+           .map(CategoryDTO::new)
+           .collect(Collectors.toList());
     }
 
     @Transactional(readOnly = true)
