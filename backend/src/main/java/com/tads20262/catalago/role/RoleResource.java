@@ -28,6 +28,7 @@ public class RoleResource
     public ResponseEntity<RoleDTO> findById(@PathVariable Long id)
     {
         RoleDTO dto = service.findById(id);
+
         return ResponseEntity.ok().body(dto);
     }
 }

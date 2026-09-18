@@ -1,5 +1,6 @@
 package com.tads20262.catalago.resource_exceptions;
 
+import com.tads20262.catalago.service_exceptions.DatabaseException;
 import com.tads20262.catalago.service_exceptions.ResourceNotFoundException;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
@@ -14,12 +15,26 @@ public class ResourceExceptionHandler
 {
     @ExceptionHandler(ResourceNotFoundException.class)
 
-    public ResponseEntity<StandardError> entityNotFound (ResourceNotFoundException e, HttpServletRequest request){
+    public ResponseEntity<StandardError> entityNotFound (ResourceNotFoundException e, HttpServletRequest request)
+    {
         HttpStatus status = HttpStatus.NOT_FOUND;
         StandardError err = new StandardError();
         err.setTimestamp(Instant.now());
         err.setStatus(status.value());
         err.setError("Resource not found");
+        err.setMessage(e.getMessage());
+        err.setPath(request.getRequestURI());
+        return ResponseEntity.status(status).body(err);
+    }
+
+    @ExceptionHandler(DatabaseException.class)
+    public ResponseEntity<StandardError> entityNotFound (DatabaseException e, HttpServletRequest request)
+    {
+        HttpStatus status = HttpStatus.NOT_FOUND;
+        StandardError err = new StandardError();
+        err.setTimestamp(Instant.now());
+        err.setStatus(status.value());
+        err.setError("Database exception");
         err.setMessage(e.getMessage());
         err.setPath(request.getRequestURI());
         return ResponseEntity.status(status).body(err);
