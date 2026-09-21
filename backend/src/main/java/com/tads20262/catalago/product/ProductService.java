@@ -1,6 +1,6 @@
 package com.tads20262.catalago.product;
 
-import com.tads20262.catalago.service_exceptions.ResourceNotFoundException;
+import com.tads20262.catalago.serviceExceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
