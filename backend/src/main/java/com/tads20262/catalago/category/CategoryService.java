@@ -1,16 +1,16 @@
 package com.tads20262.catalago.category;
 
-import com.tads20262.catalago.serviceExceptions.DatabaseException;
-import com.tads20262.catalago.serviceExceptions.ResourceNotFoundException;
+import com.tads20262.catalago.service_exceptions.DatabaseException;
+import com.tads20262.catalago.service_exceptions.ResourceNotFoundException;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 public class CategoryService
@@ -19,14 +19,11 @@ public class CategoryService
     private CategoryRepository repository;
 
     @Transactional
-    public List<CategoryDTO> findAll()
+    public Page<CategoryDTO> findAllPaged(PageRequest pageRequest)
     {
-        List<Category> list = repository.findAll();
+        Page<Category> list = repository.findAll(pageRequest);
 
-        return list
-            .stream()
-            .map(CategoryDTO::new)
-            .collect(Collectors.toList());
+        return list.map(CategoryDTO::new);
     }
 
     @Transactional(readOnly = true)
@@ -52,8 +49,7 @@ public class CategoryService
     @Transactional
     public CategoryDTO update(Long id, CategoryDTO dto)
     {
-        try
-        {
+        try{
             Category entity = repository.getReferenceById(id);
             entity.setName(dto.getName());
             entity = repository.save(entity);
